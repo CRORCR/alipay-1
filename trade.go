@@ -27,6 +27,15 @@ func (this *AliPay) TradeAppPay(param AliPayTradeAppPay) (results string, err er
 	return p.Encode(), err
 }
 
+//auth
+func (this *AliPay)AuthTradeAppPay(param TokenPay) (results string, err error) {
+	p, err := this.TokenURLValues(param)
+	if err != nil {
+		return "", err
+	}
+	return p.Encode(), err
+}
+
 // TradeFastpayRefundQuery https://docs.open.alipay.com/api_1/alipay.trade.fastpay.refund.query
 func (this *AliPay) TradeFastpayRefundQuery(param AliPayFastpayTradeRefundQuery) (results *AliPayFastpayTradeRefundQueryResponse, err error) {
 	err = this.doRequest("POST", param, &results)
