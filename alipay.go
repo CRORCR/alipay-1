@@ -26,6 +26,33 @@ type AliPay struct {
 	SignType        string
 }
 
+//auth
+func (this *AliPay) TokenURLValues(param AliPayParam) (value url.Values, err error) {
+	var p = url.Values{}
+	p.Add("app_id", this.appId)
+	p.Add("apiname", "com.alipay.account.auth")
+	p.Add("app_name", "mc")
+	p.Add("auth_type", "AUTHACCOUNT")
+	p.Add("biz_type", "openservice")
+	p.Add("method", "alipay.open.auth.sdk.code.get")
+	p.Add("product_id", "APP_FAST_LOGIN")
+	p.Add("scope", "kuaijie")
+	p.Add("sign_type", "RSA2")
+
+	var ps = param.Params()
+	if ps != nil {
+		for key, value := range ps {
+			p.Add(key, value)
+		}
+	}
+
+	sign, err := signWithPKCS1v15(p, this.privateKey, crypto.SHA256)
+	if err != nil {
+		return nil, err
+	}
+	p.Add("sign", sign)
+	return p, nil
+}
 func New(appId, aliPublicKey, privateKey string, isProduction bool) (client *AliPay) {
 	client = &AliPay{}
 	client.appId = appId
