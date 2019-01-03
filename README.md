@@ -11,6 +11,8 @@ AliPay SDK for Golang
 
 [@zwh8800](https://github.com/zwh8800) 
 
+[@crorcr](https://github.com/CRORCR) 
+
 ## 帮助
 
 在集成的过程中有遇到问题，欢迎加 QQ 群 564704807 讨论。
@@ -98,6 +100,9 @@ AliPay SDK for Golang
 * **线上资金授权冻结接口**
 	
 	alipay.fund.auth.order.app.freeze
+* **app授权接口**
+	
+	alipay.trade.create
 
 #### 通知
 	
